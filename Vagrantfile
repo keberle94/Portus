@@ -11,6 +11,7 @@ Vagrant.configure("2") do |config|
     node.vm.box_check_update = true
     node.vm.network :private_network, ip: "192.168.1.3", virtualbox__intnet: true
     node.vm.network "forwarded_port", guest: 80, host: 3000
+    node.vm.network "forwarded_port", host: 3000, guest: 3000
     node.vm.provision "shell", inline: <<EOS
 zypper -n in tcpdump
 
@@ -51,6 +52,7 @@ passenger-install-apache2-module.ruby2.1 -a
 
 cp /vagrant/vagrant/conf/portus/sysconfig_apache2 /etc/sysconfig/apache2
 cp /vagrant/vagrant/conf/portus/httpd.conf.local /etc/apache2/httpd.conf.local
+cp /vagrant/vagrant/conf/portus/listen.conf /etc/apache2/listen.conf
 cp /vagrant/vagrant/conf/portus/portus.test.lan.conf /etc/apache2/vhosts.d/
 
 systemctl enable apache2
