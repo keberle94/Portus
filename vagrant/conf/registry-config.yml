@@ -7,14 +7,18 @@ http:
   addr: 0.0.0.0:80
 auth:
   token:
-    realm: http://portus.test.lan/v2/token
-    service: registry.test.lan
-    issuer: portus.test.lan
+   # realm: http://portus.test.lan/v2/token
+    realm: http://localhost:3000/v2/token
+   # service: registry.test.lan
+    service: localhost
+   # issuer: portus.test.lan
+    issuer: loclhost:3000
     rootcertbundle: /etc/registry/portus.crt
 notifications:
   endpoints:
     - name: portus
-      url: http://portus.test.lan/v2/webhooks/events
+      # url: http://portus.test.lan/v2/webhooks/events
+      url: http://localhost:3000/v2/webhooks/events
       timeout: 500ms
       threshold: 5
       backoff: 1s

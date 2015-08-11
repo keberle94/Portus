@@ -10,8 +10,18 @@ Vagrant.configure("2") do |config|
     node.vm.box = "flavio/opensuse13-2"
     node.vm.box_check_update = true
     node.vm.network :private_network, ip: "192.168.1.3", virtualbox__intnet: true
-    node.vm.network "forwarded_port", guest: 80, host: 3000
-    node.vm.network "forwarded_port", host: 3000, guest: 3000
+    
+    node.vm.network :forwarded_port, host: 44242, guest: 80
+    
+    node.vm.provision "shell", path: "vagrant/provision_registry"
+    node.vm.provision "shell", inline: <<EOS
+mkdir -p /etc/registry
+cp /vagrant/vagrant/conf/ca_bundle/server.crt /etc/registry/portus.crt
+cp /vagrant/vagrant/conf/registry-config.yml /etc/registry/config.yml
+systemctl enable registry
+EOS
+
+node.vm.network "forwarded_port", host: 3000, guest: 3000
     node.vm.provision "shell", inline: <<EOS
 zypper -n in tcpdump
 
