@@ -4,7 +4,7 @@ storage:
   filesystem:
     rootdirectory: /var/lib/docker-registry
 http:
-  addr: 0.0.0.0:80
+  addr: 0.0.0.0:5000
 auth:
   token:
    # realm: http://portus.test.lan/v2/token

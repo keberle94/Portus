@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
     node.vm.box_check_update = true
     node.vm.network :private_network, ip: "192.168.1.3", virtualbox__intnet: true
     
-    node.vm.network :forwarded_port, host: 44242, guest: 80
+    node.vm.network :forwarded_port, host: 5000, guest: 5000
     
     node.vm.provision "shell", path: "vagrant/provision_registry"
     node.vm.provision "shell", inline: <<EOS
